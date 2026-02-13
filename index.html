@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Favorite Person ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <title>A Special Surprise ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
@@ -14,219 +14,147 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--soft-bg);
-            font-family: 'Quicksand', sans-serif;
-            overflow: hidden;
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Quicksand', sans-serif; overflow: hidden;
+            background: linear-gradient(-45deg, #fff0f3, #ffccd5, #fff0f3, #ffb3c1);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
-            text-align: center;
-            z-index: 10;
-            padding: 20px;
-            max-width: 400px;
-            overflow: visible; 
+            text-align: center; z-index: 10; padding: 30px; width: 90%; max-width: 450px;
+            background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px);
+            border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            font-family: 'Pacifico', cursive;
+        /* Typewriter Cursor Effect */
+        .typewriter {
+            display: inline-block;
+            font-family: 'Caveat', cursive;
             color: var(--dark-pink);
-            font-size: 2.2rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin: 15px 0;
+            min-height: 1.2em;
         }
 
-        /* --- CAROUSEL ADDITION --- */
-        .carousel-container {
-            position: relative;
-            width: 250px;
-            height: 300px;
-            margin: 0 auto 20px;
-            cursor: pointer;
+        .typewriter::after {
+            content: '|';
+            animation: blink 0.7s infinite;
         }
-        .gif-container img, .photo-frame img {
-            width: 250px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2);
-        }
-        .photo-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: white;
-            padding: 10px 10px 30px 10px;
-            border-radius: 15px;
-            transition: all 0.5s ease;
-        }
-        .photo-frame:nth-child(1) { transform: rotate(-3deg); z-index: 3; }
-        .photo-frame:nth-child(2) { transform: rotate(2deg); z-index: 2; }
-        .photo-frame:nth-child(3) { transform: rotate(-1deg); z-index: 1; }
 
-        /* --- ENVELOPE ADDITION --- */
-        .envelope-wrapper {
-            margin: 20px auto;
-            width: 150px;
-            height: 100px;
-            background: #ffccd5;
-            position: relative;
-            cursor: pointer;
-            border-radius: 0 0 5px 5px;
-            transition: 0.3s;
-        }
-        .flap {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 50px solid #ffccd5;
-            transition: 0.5s;
-            z-index: 2;
-        }
-        .opened .flap { transform: rotateX(180deg); transform-origin: bottom; z-index: 0; }
-        .letter {
-            position: absolute;
-            top: 0;
-            left: 5px;
-            width: 140px;
-            height: 90px;
-            background: white;
-            z-index: 1;
-            transition: 0.5s;
-            padding: 10px;
-            font-size: 0.8rem;
-            color: #555;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-        .opened .letter { transform: translateY(-60px); height: 130px; z-index: 2; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); }
-        .seal { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 24px; z-index: 3; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- BLOOM ADDITION --- */
-        #flower-pot { position: fixed; bottom: 20px; right: 20px; font-size: 40px; cursor: pointer; z-index: 100; transition: 0.3s; }
-        .bloomed-flower { position: fixed; bottom: -10px; font-size: 25px; animation: bloom 0.5s ease-out forwards; z-index: 99; }
-        @keyframes bloom { from { transform: translateY(50px) scale(0); } to { transform: translateY(0) scale(1); } }
-
-        /* --- PETAL ADDITION --- */
-        .petal { position: absolute; background-color: #ffb3c1; border-radius: 150% 0 150% 0; opacity: 0.7; pointer-events: none; animation: fall linear infinite; }
-        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            min-height: 150px;
-            position: relative;
+        /* Polaroid Styles */
+        .album-track {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 15px; padding: 20px 10px; scrollbar-width: none;
         }
+        .album-track::-webkit-scrollbar { display: none; }
+
+        .polaroid {
+            flex: 0 0 240px; scroll-snap-align: center; background: white;
+            padding: 12px 12px 35px 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(var(--r)); transition: transform 0.3s ease;
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 50; }
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; }
+
+        .btn-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; min-height: 100px; }
 
         button {
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            padding: 12px 30px; font-size: 1.1rem; border: none; border-radius: 50px;
+            cursor: pointer; font-weight: 600; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        #yesBtn { 
-            background-color: var(--dark-pink); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); 
-            position: relative;
-            z-index: 999;
-        }
-        
-        #noBtn { 
-            background-color: #f8f9fa; 
-            color: #555; 
-            z-index: 5;
-            position: relative;
-        }
+        #yesBtn { background-color: var(--dark-pink); color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); z-index: 100; }
+        #noBtn { background-color: #ffffff; color: #888; border: 1px solid #eee; position: relative; }
 
-        .heart {
-            position: absolute;
-            color: var(--primary-pink);
-            font-size: 20px;
-            animation: floatUp 5s linear infinite;
-            opacity: 0.6;
-            pointer-events: none;
-        }
+        .heart { position: absolute; color: var(--primary-pink); animation: floatUp 5s linear infinite; opacity: 0.6; pointer-events: none; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) scale(0.5); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
-        }
-
-        .hidden { display: none; }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop>
         <source src="mahika_duJcgsZx.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="stage1" class="container">
-        <div class="gif-container">
-            <img src="her-pic.jpg" alt="Her Photo">
-        </div>
-        <h1>Hey beautiful... can I ask you something?</h1>
-        <button id="startBtn" onclick="nextStage()" style="background: var(--dark-pink); color:white;">Yes?</button>
+    <div id="stage1" class="container fade-in">
+        <div class="polaroid" style="--r: -2deg; margin: 0 auto;"><img src="her-pic.jpg"></div>
+        <h1 class="typewriter" data-text="Hey beautiful... ❤️"></h1>
+        <br>
+        <button id="startBtn" onclick="nextStage()" style="background: var(--dark-pink); color:white;">Click Me</button>
     </div>
 
     <div id="stage2" class="container hidden">
-        <div class="carousel-container" onclick="rotatePhotos()">
-            <div class="photo-frame"><img src="our-pic1.jpg"></div>
-            <div class="photo-frame"><img src="our-pic2.jpg"></div>
-            <div class="photo-frame"><img src="our-pic3.jpg"></div>
+        <div class="album-track">
+            <div class="polaroid" style="--r: -3deg;"><img src="pic1.jpg"></div>
+            <div class="polaroid" style="--r: 2deg;"><img src="pic2.jpg"></div>
+            <div class="polaroid" style="--r: -1deg;"><img src="pic3.jpg"></div>
         </div>
-        <h1 id="questionText">Will you be my Valentine? ❤️</h1>
+        <h1 class="typewriter" data-text="Will you be my Valentine?"></h1>
         <div class="btn-container">
-            <button id="yesBtn" onclick="celebrate()">Yes!</button>
-            <button id="noBtn" onclick="handleNo()">No</button>
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="runAway()" onclick="handleNo()">No</button>
         </div>
     </div>
 
     <div id="stage3" class="container hidden">
-        <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHV0Nnk0bmZ4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3AmbD1l/g9582DNuQppxC/giphy.gif" alt="Celebrate">
-        </div>
-        <h1>Yun hehehe i love you baby! 🥰</h1>
-        
-        <div class="envelope-wrapper" onclick="this.classList.toggle('opened')">
-            <div class="flap"></div>
-            <div class="seal">❤️</div>
-            <div class="letter">
-                My Baby,<br>Write your sweet message here!
-            </div>
-        </div>
-
-        <p style="color: #ff4d6d; font-size: 1.2rem;">Can't wait to see you!</p>
+        <div class="polaroid" style="--r: 0deg; margin: 0 auto;"><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHV0Nnk0bmZ4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3AmbD1l/g9582DNuQppxC/giphy.gif"></div>
+        <h1 class="typewriter" data-text="Yay! I knew it! 🥰"></h1>
     </div>
-
-    <div id="flower-pot" class="hidden" onclick="bloomFlower()">🪴</div>
 
     <script>
         let noCount = 0;
-        const noTexts = ["LUHHHHHH", "WAG MO CLICK TO", "LIPAT MO SA YES", "LALA", "CLICK MONA YES"];
+        const noTexts = ["Sure?", "Really?", "Think again...", "Last chance!", "Pretty please?"];
 
-        function rotatePhotos() {
-            const container = document.querySelector('.carousel-container');
-            const frames = container.querySelectorAll('.photo-frame');
-            container.appendChild(frames[0]); 
+        // Typewriter Logic
+        function typeEffect(element, speed = 100) {
+            const text = element.getAttribute('data-text');
+            element.innerText = "";
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.append(text.charAt(i));
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
         }
 
+        // Start typewriter on first load
+        window.onload = () => {
+            typeEffect(document.querySelector('#stage1 .typewriter'));
+        };
+
         function nextStage() {
-            document.getElementById('bgMusic').play().catch(e => {});
-            document.getElementById('stage1').classList.add('hidden');
-            document.getElementById('stage2').classList.remove('hidden');
+            document.getElementById('bgMusic').play().catch(() => {});
+            transition('stage1', 'stage2');
+            setTimeout(() => {
+                typeEffect(document.querySelector('#stage2 .typewriter'));
+            }, 500);
+        }
+
+        function runAway() {
+            if (noCount < 2) return;
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
         }
 
         function handleNo() {
@@ -234,44 +162,43 @@
             const yesBtn = document.getElementById('yesBtn');
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             noCount++;
-            yesBtn.style.transform = `scale(${1 + (noCount * 0.4)})`;
-            noBtn.style.transform = `translate(${Math.random()*60-30}px, ${Math.random()*60-30}px)`;
+            const size = 1 + (noCount * 0.4);
+            yesBtn.style.transform = `scale(${size})`;
         }
 
         function celebrate() {
-            document.getElementById('stage2').classList.add('hidden');
-            document.getElementById('stage3').classList.remove('hidden');
-            document.getElementById('flower-pot').classList.remove('hidden');
-            setInterval(createPetal, 300);
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ff85a1', '#ffccd5'] });
+            transition('stage2', 'stage3');
+            setTimeout(() => {
+                typeEffect(document.querySelector('#stage3 .typewriter'));
+            }, 500);
+            
+            const duration = 5 * 1000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ff85a1'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ff85a1'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
         }
 
-        function bloomFlower() {
-            const flower = document.createElement('div');
-            const flowers = ['🌸', '🌹', '🌺', '🌻', '🌷', '🌼'];
-            flower.className = 'bloomed-flower';
-            flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-            flower.style.left = Math.random() * 95 + 'vw';
-            document.body.appendChild(flower);
-        }
-
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.width = petal.style.height = (Math.random() * 10 + 5) + 'px';
-            petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 5000);
+        function transition(from, to) {
+            const fromEl = document.getElementById(from);
+            const toEl = document.getElementById(to);
+            fromEl.style.opacity = '0';
+            setTimeout(() => {
+                fromEl.classList.add('hidden');
+                toEl.classList.remove('hidden');
+                toEl.classList.add('fade-in');
+            }, 400);
         }
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = ['❤️','💖','💗','✨'][Math.floor(Math.random()*4)];
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
