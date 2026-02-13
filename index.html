@@ -68,7 +68,6 @@
         .polaroid img { 
             width: 100%; height: 210px; 
             object-fit: cover; pointer-events: none;
-            /* POLAROID FILTER EFFECT */
             filter: brightness(1.05) contrast(1.1) sepia(0.1);
         }
 
@@ -124,16 +123,16 @@
 
     <div id="stage2" class="container hidden">
         <div class="photo-deck" id="deck" onclick="popPhoto()">
-            <div class="polaroid" style="--r: 2deg; z-index:1;"slide2pic1.jpg"></div>
-            <div class="polaroid" style="--r: -3deg; z-index:2;"slide2pic2.jpg"></div>
-            <div class="polaroid" style="--r: 4deg; z-index:3;"slide2pic3.jpg"></div>
-            <div class="polaroid" style="--r: -2deg; z-index:4;"slide2pic4.jpg"></div>
-            <div class="polaroid" style="--r: 5deg; z-index:5;"slide2pic5.jpg"></div>
-            <div class="polaroid" style="--r: -4deg; z-index:6;"slide2pic6.jpg"></div>
-            <div class="polaroid" style="--r: 3deg; z-index:7;"slide2pic7.jpg"></div>
-            <div class="polaroid" style="--r: -5deg; z-index:8;"slide2pic8.jpg"></div>
-            <div class="polaroid" style="--r: 2deg; z-index:9;"slide2pic9.jpg"></div>
-            <div class="polaroid" id="topPhoto" style="--r: -2deg; z-index:10;"slide2pic10.jpg"></div>
+            <div class="polaroid" style="--r: 2deg; z-index:1;"><img src="slide2pic10.jpg"></div>
+            <div class="polaroid" style="--r: -3deg; z-index:2;"><img src="slide2pic9.jpg"></div>
+            <div class="polaroid" style="--r: 4deg; z-index:3;"><img src="slide2pic8.jpg"></div>
+            <div class="polaroid" style="--r: -2deg; z-index:4;"><img src="slide2pic7.jpg"></div>
+            <div class="polaroid" style="--r: 5deg; z-index:5;"><img src="slide2pic6.jpg"></div>
+            <div class="polaroid" style="--r: -4deg; z-index:6;"><img src="slide2pic5.jpg"></div>
+            <div class="polaroid" style="--r: 3deg; z-index:7;"><img src="slide2pic4.jpg"></div>
+            <div class="polaroid" style="--r: -5deg; z-index:8;"><img src="slide2pic3.jpg"></div>
+            <div class="polaroid" style="--r: 2deg; z-index:9;"><img src="slide2pic2.jpg"></div>
+            <div class="polaroid" id="topPhoto" style="--r: -2deg; z-index:10;"><img src="slide2pic1.jpg"></div>
         </div>
         <h1 class="typewriter" id="text2"></h1>
         <div class="btn-container">
@@ -231,6 +230,3 @@
     </script>
 </body>
 </html>
-
-
-
