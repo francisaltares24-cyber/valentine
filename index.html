@@ -52,7 +52,7 @@
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            min-height: 100px;
+            min-height: 150px;
         }
 
         button {
@@ -65,8 +65,20 @@
             transition: all 0.3s ease;
         }
 
-        #yesBtn { background-color: var(--dark-pink); color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); z-index: 20;}
-        #noBtn { background-color: #f8f9fa; color: #555; z-index: 20;}
+        #yesBtn { 
+            background-color: var(--dark-pink); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); 
+            z-index: 30;
+            transition: transform 0.3s ease;
+        }
+        
+        #noBtn { 
+            background-color: #f8f9fa; 
+            color: #555; 
+            z-index: 20;
+            position: relative;
+        }
 
         .heart {
             position: absolute;
@@ -86,9 +98,11 @@
     </style>
 </head>
 <body>
- <audio id="bgMusic" loop preload="auto">
-    <source src="mahika_duJcgsZx.mp3" type="audio/mpeg">
-</audio>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="mahika_duJcgsZx.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="stage1" class="container">
         <div class="gif-container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHV0Nnk0bmZ4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3AmbD1l/MDJ9uUvT6uH-U/giphy.gif" alt="Cute Cat">
@@ -126,19 +140,16 @@
             "OK CLICK MONA YES ALA NA ME MALAGAY"
         ];
 
-       function nextStage() {
-    const music = document.getElementById('bgMusic');
-           
-    music.play().then(() => {
-        console.log("Music started successfully!");
-    }).catch(e => {
-        console.error("Playback failed. Error:", e);
-        alert("Please make sure your phone is not on silent!");
-    });
+        function nextStage() {
+            const music = document.getElementById('bgMusic');
+            
+            // Music starts here so it plays during the "No" phase
+            music.play().catch(e => {
+                console.log("Autoplay prevented, will try again on next click.");
+            });
 
-    document.getElementById('stage1').classList.add('hidden');
-    document.getElementById('stage2').classList.remove('hidden');
-}
+            document.getElementById('stage1').classList.add('hidden');
+            document.getElementById('stage2').classList.remove('hidden');
         }
 
         function handleNo() {
@@ -153,9 +164,9 @@
             const currentScale = 1 + (noCount * 0.4);
             yesBtn.style.transform = `scale(${currentScale})`;
             
-            // Move No button
-            const x = Math.random() * 50 - 25;
-            const y = Math.random() * 50 - 25;
+            // Move No button slightly to be annoying/funny
+            const x = Math.random() * 60 - 30;
+            const y = Math.random() * 60 - 30;
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
         }
 
@@ -171,6 +182,7 @@
             });
         }
 
+        // Background Hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -184,10 +196,4 @@
         setInterval(createHeart, 300);
     </script>
 </body>
-
 </html>
-
-
-
-
-
