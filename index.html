@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Valentine's Day Baby>ᴗ< </title>
+    <title>Happy Valentine's Day Baby >ᴗ<</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -20,6 +20,7 @@
             background: linear-gradient(-45deg, #fff0f3, #ffccd5, #fff0f3, #ffb3c1);
             background-size: 400% 400%; animation: gradientBG 15s ease infinite;
             touch-action: manipulation;
+            cursor: default;
         }
 
         @keyframes gradientBG {
@@ -41,10 +42,9 @@
             color: var(--dark-pink);
             font-size: 2rem;
             margin: 15px 0;
-            min-height: 3em; /* Space for 2-3 lines */
+            min-height: 3em; 
         }
 
-        /* Photo Deck System */
         .photo-deck {
             position: relative;
             height: 280px;
@@ -63,7 +63,6 @@
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             box-sizing: border-box;
-            user-select: none;
         }
 
         .polaroid img { 
@@ -71,13 +70,12 @@
             object-fit: cover; pointer-events: none;
         }
 
-        /* Swiping animation */
         .exit-left { transform: translate(-150%, -20%) rotate(-20deg) !important; opacity: 0; }
         .exit-right { transform: translate(150%, -20%) rotate(20deg) !important; opacity: 0; }
 
         .btn-container { 
             display: flex; justify-content: center; align-items: center; 
-            gap: 15px; margin-top: 20px; height: 120px; position: relative;
+            gap: 15px; margin-top: 20px; min-height: 120px; position: relative;
         }
 
         button {
@@ -88,13 +86,16 @@
         #yesBtn { background-color: var(--dark-pink); color: white; z-index: 1001; }
         #noBtn { background-color: #fff; color: #888; border: 1px solid #eee; z-index: 1000; }
 
-        /* Stage 3 Centering */
-        #stage3 .success-gif {
+        #stage3 {
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .success-gif {
             width: 100%;
             max-width: 250px;
             border-radius: 15px;
-            margin: 0 auto;
             display: block;
+            margin: 0 auto;
         }
 
         .hidden { display: none !important; }
@@ -135,7 +136,7 @@
         <h1 class="typewriter" id="text2"></h1>
         <div class="btn-container">
             <button id="yesBtn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" onmouseover="handleNoMove()" onclick="handleNo()">No</button>
+            <button id="noBtn" onclick="handleNo()">No</button>
         </div>
     </div>
 
@@ -148,18 +149,9 @@
         let noCount = 0;
         const noTexts = ["Are you sure?", "Think about it...", "(╥﹏╥)", "LOOOKKKK", "CUTIEEEE KAYAAA", "BEBE CLICK MO NA", "OK CLICK MO NA ALANAKO MAISIP NA NEXT"];
 
-        // Initialization
         window.onload = () => {
-            applyRotations();
-            typeEffect("text1", "Hi prettyy... Happy Valentine's Day Baby⸜(｡˃ ᵕ ˂ )⸝♡");
+            typeEffect("text1", "Hi prettyy... Happy Valentine's Day ⸜(｡˃ ᵕ ˂ )⸝");
         };
-
-        function applyRotations() {
-            document.querySelectorAll('.polaroid').forEach(p => {
-                const r = p.style.getPropertyValue('--r') || '-2deg';
-                p.style.transform = `rotate(${r})`;
-            });
-        }
 
         function typeEffect(id, text) {
             const el = document.getElementById(id);
@@ -168,12 +160,11 @@
             const timer = setInterval(() => {
                 if (i < text.length) { el.append(text.charAt(i)); i++; }
                 else clearInterval(timer);
-            }, 5000 / 100); // 50ms per char
+            }, 50);
         }
 
         function popPhoto() {
-            const deck = document.getElementById('deck');
-            const photos = deck.querySelectorAll('.polaroid:not(.exit-left):not(.exit-right)');
+            const photos = document.querySelectorAll('#deck .polaroid:not(.exit-left):not(.exit-right)');
             if (photos.length > 1) {
                 const top = photos[photos.length - 1];
                 top.classList.add(Math.random() > 0.5 ? 'exit-right' : 'exit-left');
@@ -182,46 +173,34 @@
         }
 
         function nextStage() {
-            document.getElementById('bgMusic').play();
+            document.getElementById('bgMusic').play().catch(() => {});
             transition('stage1', 'stage2');
-            setTimeout(() => typeEffect("text2", "Happy Valentine's Day Baby! Will you be my Valentine?"), 600);
-        }
-
-        function handleNoMove() {
-            if (noCount === 0) return;
-            moveNoButton();
+            setTimeout(() => typeEffect("text2", "Will u be my valentine? >ᴗ<"), 600);
         }
 
         function handleNo() {
             noCount++;
-            popPhoto(); // Transition to next pic on "No"
-            
-            // Update Text
+            popPhoto();
             const newText = noTexts[Math.min(noCount - 1, noTexts.length - 1)];
             document.getElementById('text2').innerText = newText;
 
-            // Grow Yes Button
             const yesBtn = document.getElementById('yesBtn');
-            const size = 1 + (noCount * 0.4);
-            yesBtn.style.transform = `scale(${size})`;
-
-            moveNoButton();
-        }
-
-        function moveNoButton() {
-            const btn = document.getElementById('noBtn');
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - padding * 2) + padding;
-            const y = Math.random() * (window.innerHeight - padding * 2) + padding;
+            const noBtn = document.getElementById('noBtn');
+            const yesScale = 1 + (noCount * 0.4);
+            const noScale = Math.max(0.1, 1 - (noCount * 0.15));
             
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            yesBtn.style.transform = `scale(${yesScale})`;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            if (noScale <= 0.1) {
+                noBtn.style.opacity = "0";
+                noBtn.style.pointerEvents = "none";
+            }
         }
 
         function celebrate() {
             transition('stage2', 'stage3');
-            setTimeout(() => typeEffect("text3", "Yay! Best Valentine's ever! 🥰 I love you!"), 600);
+            setTimeout(() => typeEffect("text3", "Yippee! I love you, baby. See you later! (੭˃ᴗ˂)੭"), 600);
             
             const end = Date.now() + 10000;
             (function frame() {
@@ -238,18 +217,15 @@
             toEl.classList.add('fade-in');
         }
 
-        // Floating Hearts Background
         setInterval(() => {
             const h = document.createElement('div');
             h.classList.add('heart-bg');
             h.innerHTML = '❤️';
             h.style.left = Math.random() * 100 + 'vw';
             h.style.fontSize = Math.random() * 20 + 10 + 'px';
-            h.style.opacity = Math.random();
             document.body.appendChild(h);
             setTimeout(() => h.remove(), 4000);
         }, 600);
     </script>
 </body>
 </html>
-
