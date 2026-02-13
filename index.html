@@ -127,13 +127,19 @@
             "OK CLICK MONA YES ALA NA ME MALAGAY"
         ];
 
-        function nextStage() {
-            // Play music
-            const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log("Audio block:", e));
+       function nextStage() {
+    const music = document.getElementById('bgMusic');
+           
+    music.play().then(() => {
+        console.log("Music started successfully!");
+    }).catch(e => {
+        console.error("Playback failed. Error:", e);
+        alert("Please make sure your phone is not on silent!");
+    });
 
-            document.getElementById('stage1').classList.add('hidden');
-            document.getElementById('stage2').classList.remove('hidden');
+    document.getElementById('stage1').classList.add('hidden');
+    document.getElementById('stage2').classList.remove('hidden');
+}
         }
 
         function handleNo() {
@@ -181,6 +187,7 @@
 </body>
 
 </html>
+
 
 
 
