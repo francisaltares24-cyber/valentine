@@ -30,6 +30,8 @@
             z-index: 10;
             padding: 20px;
             max-width: 400px;
+            /* Added to ensure the growing button isn't cut off */
+            overflow: visible; 
         }
 
         h1 {
@@ -53,6 +55,7 @@
             gap: 15px;
             flex-wrap: wrap;
             min-height: 150px;
+            position: relative;
         }
 
         button {
@@ -69,14 +72,16 @@
             background-color: var(--dark-pink); 
             color: white; 
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); 
-            z-index: 30;
+            /* FIXED: These two lines ensure it stays clickable and on top */
+            position: relative;
+            z-index: 999;
             transition: transform 0.3s ease;
         }
         
         #noBtn { 
             background-color: #f8f9fa; 
             color: #555; 
-            z-index: 20;
+            z-index: 5;
             position: relative;
         }
 
@@ -143,7 +148,6 @@
         function nextStage() {
             const music = document.getElementById('bgMusic');
             
-            // Music starts here so it plays during the "No" phase
             music.play().catch(e => {
                 console.log("Autoplay prevented, will try again on next click.");
             });
@@ -156,15 +160,12 @@
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
-            // Change text
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             noCount++;
 
-            // Make Yes grow
             const currentScale = 1 + (noCount * 0.4);
             yesBtn.style.transform = `scale(${currentScale})`;
             
-            // Move No button slightly to be annoying/funny
             const x = Math.random() * 60 - 30;
             const y = Math.random() * 60 - 30;
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
@@ -182,7 +183,6 @@
             });
         }
 
-        // Background Hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -197,3 +197,4 @@
     </script>
 </body>
 </html>
+
