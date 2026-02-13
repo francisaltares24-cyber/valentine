@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Surprise ❤️</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -19,6 +20,8 @@
             font-family: 'Quicksand', sans-serif; overflow: hidden;
             background: linear-gradient(-45deg, #fff0f3, #ffccd5, #fff0f3, #ffb3c1);
             background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            /* Suggestion: Heart Cursor */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size:20px'><text y='20'>❤️</text></svg>"), auto;
         }
 
         @keyframes gradientBG {
@@ -34,7 +37,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        /* Typewriter Cursor Effect */
         .typewriter {
             display: inline-block;
             font-family: 'Caveat', cursive;
@@ -64,20 +66,42 @@
             transform: rotate(var(--r)); transition: transform 0.3s ease;
         }
         .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 50; }
-        .polaroid img { width: 100%; height: 250px; object-fit: cover; }
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
 
-        .btn-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; min-height: 100px; }
+        .btn-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; min-height: 150px; position: relative; }
 
         button {
             padding: 12px 30px; font-size: 1.1rem; border: none; border-radius: 50px;
             cursor: pointer; font-weight: 600; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        #yesBtn { background-color: var(--dark-pink); color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); z-index: 100; }
-        #noBtn { background-color: #ffffff; color: #888; border: 1px solid #eee; position: relative; }
+        #yesBtn { 
+            background-color: var(--dark-pink); color: white; 
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); 
+            z-index: 100;
+            animation: pulse 1.5s infinite; /* Suggestion: Pulse animation */
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-        .heart { position: absolute; color: var(--primary-pink); animation: floatUp 5s linear infinite; opacity: 0.6; pointer-events: none; }
-        @keyframes floatUp { 0% { transform: translateY(110vh) scale(0.5); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+        #noBtn { 
+            background-color: #ffffff; color: #888; 
+            border: 1px solid #eee; 
+            position: absolute; /* Changed to absolute for runaway logic */
+            right: 50px;
+            transition: all 0.2s ease;
+        }
+
+        /* Floating Hearts */
+        .heart { position: absolute; color: var(--primary-pink); animation: floatUp 5s linear infinite; opacity: 0.6; pointer-events: none; z-index: 1; }
+        @keyframes floatUp { 
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 1; } 
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.5); opacity: 0; } 
+        }
 
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.8s forwards; }
@@ -91,7 +115,7 @@
     </audio>
 
     <div id="stage1" class="container fade-in">
-        <div class="polaroid" style="--r: -2deg; margin: 0 auto;"><img src="her-pic.jpg"></div>
+        <div class="polaroid" style="--r: -2deg; margin: 0 auto;"><img src="her-pic.jpg" alt="You"></div>
         <h1 class="typewriter" data-text="Hey beautiful... ❤️"></h1>
         <br>
         <button id="startBtn" onclick="nextStage()" style="background: var(--dark-pink); color:white;">Click Me</button>
@@ -111,16 +135,17 @@
     </div>
 
     <div id="stage3" class="container hidden">
-        <div class="polaroid" style="--r: 0deg; margin: 0 auto;"><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHV0Nnk0bmZ4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3AmbD1l/g9582DNuQppxC/giphy.gif"></div>
+        <div class="polaroid" style="--r: 0deg; margin: 0 auto;">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHV0Nnk0bmZ4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3AmbD1l/g9582DNuQppxC/giphy.gif" alt="Success">
+        </div>
         <h1 class="typewriter" data-text="Yay! I knew it! 🥰"></h1>
     </div>
 
     <script>
         let noCount = 0;
-        const noTexts = ["Sure?", "Really?", "Think again...", "Last chance!", "Pretty please?"];
+        const noTexts = ["Sure?", "Really?", "Think again...", "Last chance!", "Pretty please?", "You can't catch me!"];
 
-        // Typewriter Logic
-        function typeEffect(element, speed = 100) {
+        function typeEffect(element, speed = 80) {
             const text = element.getAttribute('data-text');
             element.innerText = "";
             let i = 0;
@@ -134,24 +159,30 @@
             }, speed);
         }
 
-        // Start typewriter on first load
         window.onload = () => {
             typeEffect(document.querySelector('#stage1 .typewriter'));
         };
 
         function nextStage() {
-            document.getElementById('bgMusic').play().catch(() => {});
+            document.getElementById('bgMusic').play().catch(() => {
+                console.log("Audio play blocked; user must interact first.");
+            });
             transition('stage1', 'stage2');
             setTimeout(() => {
                 typeEffect(document.querySelector('#stage2 .typewriter'));
             }, 500);
         }
 
+        // Logic to move the 'No' button randomly
         function runAway() {
-            if (noCount < 2) return;
+            if (noCount < 1) return; // Only start running after the first "No" click
             const noBtn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 150);
-            const y = Math.random() * (window.innerHeight - 100);
+            const container = document.querySelector('.btn-container').getBoundingClientRect();
+            
+            // Generate random position within a reasonable range of the screen
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
@@ -160,10 +191,17 @@
         function handleNo() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
+            
+            // Change text
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             noCount++;
-            const size = 1 + (noCount * 0.4);
+            
+            // Make Yes button grow bigger with each No
+            const size = 1 + (noCount * 0.3);
             yesBtn.style.transform = `scale(${size})`;
+            
+            // Immediately trigger a move
+            runAway();
         }
 
         function celebrate() {
@@ -172,12 +210,28 @@
                 typeEffect(document.querySelector('#stage3 .typewriter'));
             }, 500);
             
-            const duration = 5 * 1000;
+            const duration = 10 * 1000;
             const end = Date.now() + duration;
+
             (function frame() {
-                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ff85a1'] });
-                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ff85a1'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff4d6d', '#ff85a1', '#ffffff']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff4d6d', '#ff85a1', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
             }());
         }
 
@@ -192,21 +246,18 @@
             }, 400);
         }
 
+        // Floating heart background elements
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = ['❤️','💖','💗','✨'][Math.floor(Math.random()*4)];
+            heart.innerHTML = ['❤️','💖','💗','✨','🌸'][Math.floor(Math.random()*5)];
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3-6s
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 6000);
         }
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
-
-
-
-
